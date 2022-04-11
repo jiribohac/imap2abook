@@ -6,6 +6,6 @@ while read a b;
 	do if [[ $a == $b ]]; then 
 		echo alias $a \<$a\>
 	else 
-		echo "alias $a \"$b\" \<$a\>"
+		echo "alias $a \"$b\" <$a>"
 	fi
 done
