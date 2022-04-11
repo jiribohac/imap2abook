@@ -117,6 +117,7 @@ for m in msg_data:
                         pass
 
                 for name, addr in email.utils.getaddresses(to + cc + bcc):
+                        addr = addr.lower()
                         if addr:
                                 if name:
                                         name = str(email.header.make_header(email.header.decode_header(name)))
