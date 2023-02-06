@@ -87,7 +87,18 @@ except imaplib.IMAP4.error as e:
         print("Cannot select folder " + folder + ": " + str (e), file=sys.stderr)
         exit(1)
 
-num="1:*"
+try:
+        d = datetime.datetime.fromtimestamp(mindate).strftime("%d-%b-%Y")
+        typ, data = conn.search(None, "SENTSINCE " + d)
+        num = data[0].decode().replace(" ", ",")
+        if not num:
+                print("WARNING: no messages", file=sys.stderr)
+                exit(0)
+
+except imaplib.IMAP4.error as e:
+       print("WARNING: cannot search messages, working with complete folder: " + str (e), file=sys.stderr)
+       num="1:*"
+
 try:
         typ, msg_data = conn.fetch(num, '(BODY.PEEK[HEADER.FIELDS (TO CC BCC DATE)])')
 except imaplib.IMAP4.error as e:
