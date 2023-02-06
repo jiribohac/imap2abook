@@ -32,7 +32,7 @@ maxage = 0
 try:
         opts, args = getopt.getopt(sys.argv[1:], "hs:p:u:w:f:a:ve", ["help", "server=", "port=", "user=", "password=", "folder=", "maxage=", "vcard", "email" ])
 except getopt.GetoptError as err:
-        print(err)
+        print(err, file=sys.stderr)
         usage
         sys.exit(1)
 
@@ -91,7 +91,7 @@ num="1:*"
 try:
         typ, msg_data = conn.fetch(num, '(BODY.PEEK[HEADER.FIELDS (TO CC BCC DATE)])')
 except:
-        print("Cannot fetch headers")
+        print("Cannot fetch headers", file=sys.stderr)
         exit(1)
 
 abook=dict()
