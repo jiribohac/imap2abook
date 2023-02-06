@@ -77,21 +77,21 @@ else:
 try:
         conn = imaplib.IMAP4_SSL(server, port)
         conn.login(user, password)
-except:
-        print("Cannot conect to IMAP server " + server + ":" + port, file=sys.stderr)
+except imaplib.IMAP4.error as e:
+        print("Cannot conect to IMAP server " + server + ":" + port + ": " + str(e), file=sys.stderr)
         exit(1)
 
 try:
         conn.select(mailbox='"'+folder+'"', readonly=True)
-except:
-        print("Cannot select folder " + folder, file=sys.stderr)
+except imaplib.IMAP4.error as e:
+        print("Cannot select folder " + folder + ": " + str (e), file=sys.stderr)
         exit(1)
 
 num="1:*"
 try:
         typ, msg_data = conn.fetch(num, '(BODY.PEEK[HEADER.FIELDS (TO CC BCC DATE)])')
-except:
-        print("Cannot fetch headers", file=sys.stderr)
+except imaplib.IMAP4.error as e:
+        print("Cannot fetch headers: " + str(e), file=sys.stderr)
         exit(1)
 
 abook=dict()
