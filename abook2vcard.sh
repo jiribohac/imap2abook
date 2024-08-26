@@ -7,7 +7,7 @@
 while read a b; do
 	echo "BEGIN:VCARD"
 	echo "VERSION:2.1"
-	echo "N: $a"
-	echo "EMAIL: $adr"
+	echo "N: $b"
+	echo "EMAIL: $a"
 	echo "END:VCARD"
 done
